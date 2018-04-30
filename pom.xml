@@ -12,6 +12,7 @@
         <module>redis-in-action</module>
         <module>SpringJdbcDemo</module>
         <module>SpringActiveMQ</module>
+        <module>FrameworkForIoc</module>
     </modules>
 
     <properties>

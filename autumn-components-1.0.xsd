@@ -15,11 +15,11 @@
 
     <xsd:element name="component">
         <xsd:complexType>
-            <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                <xsd:element ref="property"/>
-            </xsd:choice>
             <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
             <xsd:attribute name="class" type="xsd:string"></xsd:attribute>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="property" />
+            </xsd:choice>
         </xsd:complexType>
     </xsd:element>
 

@@ -1,4 +1,4 @@
-package com.jiehang.ioc;
+package com.jiehang.autumn.ioc;
 
 import java.util.List;
 
@@ -17,9 +17,17 @@ public class Component {
 	public void setRefList(List<String> refList) {
 		this.refList = refList;
 	}
-	Component(String clazz, List<String> refList) {
+	public Component(String clazz, List<String> refList) {
 		super();
 		this.clazz = clazz;
 		this.refList = refList;
+	}
+
+	@Override
+	public String toString() {
+		return "Component{" +
+				"clazz='" + clazz + '\'' +
+				", refList=" + refList +
+				'}';
 	}
 }

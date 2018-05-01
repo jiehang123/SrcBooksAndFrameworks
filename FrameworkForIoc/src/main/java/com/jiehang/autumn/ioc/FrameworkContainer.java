@@ -1,7 +1,6 @@
-package com.jiehang.ioc;
+package com.jiehang.autumn.ioc;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,22 +8,24 @@ import java.util.Map;
 public class FrameworkContainer {
 
 	private static Map<String, Component> componmentMap = new HashMap<>();
-	static {
-		componmentMap.put("controller", new Component("com.jiehang.ioc.SimpleController", Arrays.asList("fundService")));
-		componmentMap.put("fundService", new Component("com.jiehang.ioc.FundServiceImpl", Arrays.asList("fundDao")));
-		componmentMap.put("fundDao", new Component("com.jiehang.ioc.FundDaoImpl", null));
-		componmentMap.put("processor", new Component("com.jiehang.ioc.SimpleProcessor", Arrays.asList("guidService")));
-		componmentMap.put("guidService", new Component("com.jiehang.ioc.GuidServiceImpl", Arrays.asList("guidDao", "tradeDao")));
-		componmentMap.put("guidDao", new Component("com.jiehang.ioc.GuidDaoImpl", null));
-		componmentMap.put("tradeDao", new Component("com.jiehang.ioc.TradeDaoImpl", null));
-	}
+	/*static {
+		componmentMap.put("controller", new Component("SimpleController", Arrays.asList("fundService")));
+		componmentMap.put("fundService", new Component("FundServiceImpl", Arrays.asList("fundDao")));
+		componmentMap.put("fundDao", new Component("FundDaoImpl", null));
+		componmentMap.put("processor", new Component("SimpleProcessor", Arrays.asList("guidService")));
+		componmentMap.put("guidService", new Component("GuidServiceImpl", Arrays.asList("guidDao", "tradeDao")));
+		componmentMap.put("guidDao", new Component("GuidDaoImpl", null));
+		componmentMap.put("tradeDao", new Component("TradeDaoImpl", null));
+	}*/
 
 	private static Map<String, Object> instanceMap = new HashMap<>();
-	
+
 	/*
 	 * create all Objects
 	 */
-	public static void init() {
+	public static void init(String filePathStr) {
+		ConfigManager configManager = new ConfigManager(filePathStr);
+		configManager.getXmlConfig(componmentMap);
 		for (String id : componmentMap.keySet()) {
 			createBean(id);
 		}
@@ -49,7 +50,7 @@ public class FrameworkContainer {
 			}
 		}
 		List<String> refList = componmentMap.get(componentId).getRefList();
-		if (null != refList) {
+		if (null != refList && refList.size() > 0) {
 			injectBean(object, refList);
 		}
 		return object;
@@ -61,11 +62,13 @@ public class FrameworkContainer {
 	private static void injectBean(Object object, List<String> refList) {
 		try {
 			Field[] fields = object.getClass().getDeclaredFields();
-			for (Field field : fields) {
-				if (refList.contains(field.getName())) {
-					field.setAccessible(true);
-					Object value = createBean(field.getName());
-					field.set(object, value);
+			if(fields != null && fields.length > 0) {
+				for (Field field : fields) {
+					if (refList.contains(field.getName())) {
+						field.setAccessible(true);
+						Object value = createBean(field.getName());
+						field.set(object, value);
+					}
 				}
 			}
 		} catch (Exception e) {

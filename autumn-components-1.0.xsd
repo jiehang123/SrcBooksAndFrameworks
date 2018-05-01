@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.jiehang.com/autumn/schema/components"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.jiehang.com/autumn/schema/components"
+            elementFormDefault="qualified">
+    <xsd:element name="components">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                    <xsd:element ref="component"/>
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="component">
+        <xsd:complexType>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="property"/>
+            </xsd:choice>
+            <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+            <xsd:attribute name="class" type="xsd:string"></xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="property">
+        <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

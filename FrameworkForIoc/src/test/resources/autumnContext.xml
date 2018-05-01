@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://www.jiehang.com/autumn/schema/components"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.jiehang.com/autumn/schema/components
+                http://www.jiehang.com/autumn/schema/components/autumn-components-1.0.xsd">
+
+    <component name="simpleController" class="com.jiehang.autumn.bean.SimpleController">
+        <property name="fundService">fundService</property>
+    </component>
+
+    <component name="fundService" class="com.jiehang.autumn.bean.FundServiceImpl">
+        <property name="fundDao">fundDao</property>
+    </component>
+
+    <component name="fundDao" class="com.jiehang.autumn.bean.FundDaoImpl">
+    </component>
+
+    <component name="simpleProcessor" class="com.jiehang.autumn.bean.SimpleProcessor">
+        <property name="guidService">guidService</property>
+    </component>
+
+    <component name="guidService" class="com.jiehang.autumn.bean.GuidServiceImpl">
+        <property name="guidDao">guidDao</property>
+        <property name="tradeDao">tradeDao</property>
+    </component>
+
+    <component name="guidDao" class="com.jiehang.autumn.bean.GuidDaoImpl">
+    </component>
+
+    <component name="tradeDao" class="com.jiehang.autumn.bean.TradeDaoImpl">
+    </component>
+</components>

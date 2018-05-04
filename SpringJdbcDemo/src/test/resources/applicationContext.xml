@@ -2,12 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:property-placeholder location="classpath:db.properties" />
+
     <!--spring提供的数据源，没有连接池功能，用dbcp连接池取代它-->
     <!--<bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -17,10 +23,11 @@
         <property name="password" value="jin~@jake12" />
     </bean>-->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://45.76.51.233:3306/blog" />
-        <property name="username" value="root" />
-        <property name="password" value="jin~@jake12" />
+        <property name="driverClassName" value="${mysql.driverClassName}" />
+        <property name="url" value="${mysql.url}" />
+        <property name="username" value="${mysql.username}" />
+        <property name="password" value="${mysql.password}" />
+        <property name="maxIdle" value="${mysql.maxIdle}" />
         <!--这个属性是无效的，spring会自己去管理事务，即便是false，事务也会被提交-->
         <property name="defaultAutoCommit" value="false" />
     </bean>
@@ -28,7 +35,7 @@
     <bean id="blogCategoryDao" class="com.jiehang.dao.impl.BlogCategoryDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
+    <!--配置事务管理器-->
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -36,6 +43,7 @@
     <bean id="logUtils" class="com.jiehang.utils.LogUtils">
     </bean>
 
+    <!--  配置事务传播行为 -->
     <tx:advice id="daoTransaction" transaction-manager="txManager">
         <tx:attributes>
             <tx:method name="insert*" propagation="REQUIRED"/>
@@ -53,6 +61,7 @@
             <aop:after pointcut-ref="logPointCut" method="end" />
         </aop:aspect>
     </aop:config>
+
     <!-- 配置事务切面 -->
     <aop:config>
         <aop:pointcut id="daoPointCut" expression="execution(* com.jiehang.dao.*.*(..))" />

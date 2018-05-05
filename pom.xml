@@ -13,6 +13,7 @@
         <module>SpringJdbcDemo</module>
         <module>SpringActiveMQ</module>
         <module>FrameworkForIoc</module>
+        <module>config-tools</module>
     </modules>
 
     <properties>

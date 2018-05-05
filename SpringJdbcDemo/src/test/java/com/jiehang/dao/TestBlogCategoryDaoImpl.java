@@ -14,7 +14,7 @@ public class TestBlogCategoryDaoImpl {
 
     @BeforeClass
     public static void init() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_jdbc_demo.xml");
         blogCategoryDao = (BlogCategoryDao) context.getBean("blogCategoryDao");
     }
 

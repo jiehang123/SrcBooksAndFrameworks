@@ -13,7 +13,7 @@ public class TestProducer {
 
     @BeforeClass
     public static void init() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_activemq_config.xml");
         producer = (Producer) context.getBean("producer");
     }
 

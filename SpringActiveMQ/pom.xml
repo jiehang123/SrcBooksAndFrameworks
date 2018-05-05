@@ -95,5 +95,23 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>../config-tools/config</directory>
+                <includes>
+                    <include>spring_activemq_config.xml</include>
+                    <include>active_mq_ref.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>../config-tools/config/common</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

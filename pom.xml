@@ -15,6 +15,7 @@
         <module>FrameworkForIoc</module>
         <module>config-tools</module>
         <module>commons-pool2</module>
+        <module>TestDemo</module>
     </modules>
 
     <properties>
